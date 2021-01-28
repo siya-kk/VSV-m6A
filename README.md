@@ -2,6 +2,6 @@
 
 Scripts for generate RPKM-value based on RNA-seq.
 
-The "example.zip" contain the input-data and attachment.
-The "RPKM.Rmd" contain the orginal codes.
+The "example.zip" contains the input-data files.
+The "RPKM.Rmd" contains the orginal codes.
 
