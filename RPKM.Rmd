@@ -1,0 +1,17 @@
+
+
+
+###shell
+cat featureCounts_raw.out|sed '1,2 d'|cut -f1,7|sort -k1 -n > featureCounts_filter.out
+
+###Rscript
+gene_length<-read.table("mm10_gene.length",stringsAsFactors=F);
+colnames(gene_length)<-c("GeneID","exon_len");
+reads_number<-read.table("featureCounts_filter.out",stringsAsFactors=F);
+colnames(reads_number)<-c("GeneID","reads_cnt");
+reads_number<-merge(reads_number,gene_length,by="GeneID");
+depth.reads_number<-sum(reads_number[,2]);
+RPKM.reads_number<-as.numeric(reads_number[,2])/(as.numeric(reads_number[,3])*depth.reads_number)*10^9;
+reads_number[,4]<-RPKM.reads_number;
+colnames(reads_number)<-c(colnames(reads_number)[1:3],"RPKM");
+write.table(reads_number,"sample.RPKM",col.names=T,row.names=F,quote=F,sep="\t");
